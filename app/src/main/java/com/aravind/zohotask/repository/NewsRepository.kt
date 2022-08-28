@@ -1,19 +1,24 @@
 package com.aravind.zohotask.repository
 
-import androidx.paging.PagingSource
+import androidx.lifecycle.LiveData
 import com.aravind.zohotask.database.NewsDao
+import com.aravind.zohotask.network.NewsService
 import com.aravind.zohotask.network.model.NewsModelData
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
-    private val appDao: NewsDao
+    private val appDao: NewsDao,
 ) {
 
-    fun getAllRecords(): PagingSource<Int, List<NewsModelData>> {
+    fun getAllNews(): List<NewsModelData> {
         return appDao.getAllNews()
     }
 
-    fun insertRecord(newsData: List<NewsModelData>) {
+    fun insertNews(newsData: NewsModelData) {
         appDao.insertAll(news = newsData)
+    }
+
+    fun deleteAllNews(){
+        appDao.deleteAllRecords()
     }
 }

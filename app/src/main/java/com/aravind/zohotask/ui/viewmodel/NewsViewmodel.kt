@@ -20,14 +20,17 @@ class NewsViewmodel @Inject constructor(
     private val newsService: NewsService,
     private val newsRepository: NewsRepository): ViewModel() {
 
-    val newsLiveData = MutableLiveData<NewsModelData>()
+    val newsLiveData = MutableLiveData<List<NewsModelData>>()
 
-   suspend fun getAllRecords(): Flow<PagingData<List<NewsModelData>>> {
+   fun getAllRecords(){
+        viewModelScope.launch {
+            val news = newsService.getNews()
+            newsRepository.deleteAllNews()
+            news.data?.forEach { newsData ->
+                newsRepository.insertNews(newsData)
+            }
 
-        val news =  newsService.getNews()
-        newsRepository.insertRecord(news.data!!)
-
-        return Pager(config = PagingConfig(pageSize = 10),
-            pagingSourceFactory = {newsRepository.getAllRecords()}).flow.cachedIn(viewModelScope)
-    }
+            newsLiveData.postValue(newsRepository.getAllNews())
+        }
+   }
 }

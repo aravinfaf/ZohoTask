@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.aravind.zohotask.network.model.NewsModelData
 
-@Database(entities = [NewsModelData::class], version = 1)
+@Database(entities = [NewsModelData::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getDao(): NewsDao
@@ -16,8 +16,8 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getAppDbInstance(context: Context): AppDatabase {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder<AppDatabase>(
-                    context.applicationContext, AppDatabase::class.java, "news"
+                INSTANCE = Room.databaseBuilder(
+                    context.applicationContext, AppDatabase::class.java, "NEWS"
                 )
                     .allowMainThreadQueries()
                     .build()
