@@ -1,15 +1,14 @@
 package com.aravind.zohotask.ui.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.aravind.zohotask.R
-import com.aravind.zohotask.databinding.ActivityMainBinding
-import com.aravind.zohotask.network.model.NewsModelData
+import com.aravind.zohotask.databinding.ActivityNewsBinding
+import com.aravind.zohotask.ui.view.adapter.NewsAdapter
+import com.aravind.zohotask.ui.view.adapter.NewsLoadStateAdapter
 import com.aravind.zohotask.ui.viewmodel.NewsViewmodel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -17,17 +16,25 @@ import kotlinx.coroutines.flow.collectLatest
 @AndroidEntryPoint
 class NewsActivity : AppCompatActivity() {
 
+    private var binding : ActivityNewsBinding? = null
     private val newsViewmodel: NewsViewmodel by viewModels()
+    private lateinit var adapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
-        newsViewmodel.newsLiveData.observe(this,NewsObserver)
         newsViewmodel.getAllRecords()
-    }
+        adapter = NewsAdapter()
 
-    private var NewsObserver = Observer<List<NewsModelData>>{
-        Log.d("SS",it.toString())
+            lifecycleScope.launchWhenCreated {
+                newsViewmodel.data.collectLatest {
+                    adapter.submitData(it)
+                }
+            }
+        binding?.newsRecyclerview?.adapter = adapter.withLoadStateFooter(
+            NewsLoadStateAdapter()
+        )
     }
 }

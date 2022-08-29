@@ -16,6 +16,7 @@ data class NewsModel(
 class NewsModelData(
     @NonNull
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "newsId")
     var newsId : Int = 0,
 
     @ColumnInfo(name = "author")

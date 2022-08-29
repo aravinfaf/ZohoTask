@@ -1,8 +1,6 @@
 package com.aravind.zohotask.repository
 
-import androidx.lifecycle.LiveData
 import com.aravind.zohotask.database.NewsDao
-import com.aravind.zohotask.network.NewsService
 import com.aravind.zohotask.network.model.NewsModelData
 import javax.inject.Inject
 
@@ -21,4 +19,5 @@ class NewsRepository @Inject constructor(
     fun deleteAllNews(){
         appDao.deleteAllRecords()
     }
+
 }

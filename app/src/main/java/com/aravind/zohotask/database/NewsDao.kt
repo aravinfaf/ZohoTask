@@ -1,5 +1,6 @@
 package com.aravind.zohotask.database
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,4 +18,7 @@ interface NewsDao {
 
     @Query("DELETE FROM newsdetail")
     fun deleteAllRecords()
+
+    @Query("SELECT * from newsdetail ORDER BY id ASC LIMIT :limit OFFSET :offset")
+    suspend fun getAll(limit : Int, offset : Int) : List<NewsModelData>
 }
