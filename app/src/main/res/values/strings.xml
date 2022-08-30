@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ZohoTask</string>
+    <string name="today">Today</string>
+
 </resources>

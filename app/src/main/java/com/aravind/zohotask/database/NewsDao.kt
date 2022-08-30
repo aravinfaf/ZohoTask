@@ -1,6 +1,5 @@
 package com.aravind.zohotask.database
 
-import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +10,7 @@ import com.aravind.zohotask.network.model.NewsModelData
 interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(news: NewsModelData)
+    suspend fun insertAll(news: NewsModelData)
 
     @Query("SELECT * from newsdetail")
     fun getAllNews(): List<NewsModelData>

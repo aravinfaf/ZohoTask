@@ -11,7 +11,6 @@ class PagingSource @Inject constructor(
     private val newsDao: NewsDao
 ) : PagingSource<Int, NewsModelData>() {
 
-
     override fun getRefreshKey(state: PagingState<Int, NewsModelData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage =state.closestPageToPosition(anchorPosition)
