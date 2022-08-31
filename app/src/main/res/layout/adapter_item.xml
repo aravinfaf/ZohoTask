@@ -1,17 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:orientation="vertical">
+    xmlns:card_view="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/_dimen_5"
+    android:backgroundTint="@color/white"
+    card_view:backgroundTint="@color/white">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:layout_gravity="center"
+        android:padding="@dimen/_dimen_5">
 
-</LinearLayout>
+        <ImageView
+            android:padding="@dimen/_dimen_10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/avatarImageview"
+            android:layout_width="@dimen/_dimen_60"
+            android:layout_height="@dimen/_dimen_60"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/placeholder" />
+
+
+        <TextView
+            android:id="@+id/nameTextview"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/avatarImageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="@dimen/_text_15"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingLeft="@dimen/_dimen_5"/>
+
+
+        <TextView
+            android:id="@+id/descriptionTextview"
+            app:layout_constraintTop_toBottomOf="@id/nameTextview"
+            app:layout_constraintLeft_toRightOf="@id/avatarImageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_text_10"
+            android:paddingLeft="@dimen/_dimen_5"
+            android:paddingTop="@dimen/_dimen_5"
+            android:singleLine="false"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:inputType="textMultiLine"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -30,9 +30,8 @@ class WeatherViewmodel @Inject constructor(private val apiRepository: ApiReposit
                             appid = Constants.APP_KEY)))
 
                 } catch (e: ApiException) {
-                    Log.d("EEEE", e.message!!)
                     withContext(Dispatchers.Main) {
-                        weatherLiveData.postValue( e.message?.let { Resource.error(it, null) })
+                        weatherLiveData.postValue( e.message.let { Resource.error(it!!, null) })
                     }
                 }
             }

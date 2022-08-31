@@ -2,40 +2,48 @@ package com.aravind.zohotask.ui.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.aravind.zohotask.R
 import com.aravind.zohotask.databinding.AdapterItemBinding
 import com.aravind.zohotask.network.model.NewsModelData
 
 
-class NewsAdapter : PagingDataAdapter<NewsModelData,NewsAdapter.NewsViewHolder>(DIFF_CALLBACK) {
+class NewsAdapter(
+    private var newsList : List<NewsModelData>,
+    val clickListener: onAuthorClickListener
+) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+    inner class ViewHolder(val binding: AdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindData(data : NewsModelData) {
 
-    companion object{
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<NewsModelData>(){
-            override fun areItemsTheSame(oldItem: NewsModelData, newItem: NewsModelData): Boolean =
-                oldItem.newsId == newItem.newsId
+            binding?.nameTextview.text = data.author
+            binding?.descriptionTextview.text = data.content
 
-            override fun areContentsTheSame(
-                oldItem: NewsModelData,
-                newItem: NewsModelData
-            ): Boolean = oldItem == newItem
-
+            binding.avatarImageview.load(data.imageUrl) {
+                crossfade(true)
+                placeholder(R.drawable.placeholder)
+                transformations(CircleCropTransformation())
+            }
         }
     }
 
-    inner class NewsViewHolder(val binding: AdapterItemBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.binding.apply {
-            textView.text = item?.author
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(AdapterItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder(
-            AdapterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindData(newsList[position])
+    }
 
+    override fun getItemCount(): Int = newsList.size
+
+    fun setFilter(list : ArrayList<NewsModelData>){
+        this.newsList = list
+    }
+
+    interface onAuthorClickListener{
+        fun onAuthorClicked(news : NewsModelData)
+    }
 }
+

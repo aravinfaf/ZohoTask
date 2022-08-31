@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">ZohoTask</string>
     <string name="today">Today</string>
+    <string name="test">Kriti Sanon penned a note after winning the Filmfare Award for Best Actress
+    Kriti Sanon penned a note after winning the Filmfare Award for Best Actress
+        Kriti Sanon penned a note after winning the Filmfare Award for Best Actress
+        Kriti Sanon penned a note after winning the Filmfare Award for Best Actress
+    </string>
+
+    <string name="read_more">show more</string>
+    <string name="read_less">show less</string>
 
 </resources>

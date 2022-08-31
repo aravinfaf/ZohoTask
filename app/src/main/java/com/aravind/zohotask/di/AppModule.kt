@@ -30,14 +30,14 @@ object AppModule {
         return OkHttpClient().newBuilder().addInterceptor(loggingInterceptor).build()
     }
      
-//    @Provides
-//    fun provideRetrofitInstance(client: OkHttpClient) : Retrofit {
-//        return Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .client(client)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//    }
+    @Provides
+    fun provideRetrofitInstance(client: OkHttpClient) : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 
     @Provides
     fun apiService(retrofit: Retrofit) : ApiService{
@@ -54,12 +54,12 @@ object AppModule {
         return appDatabase.getDao()
     }
 
-    @Provides
-    fun provideWeatherRetrofitInstance(client: OkHttpClient) : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(Constants.WEATHER_BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+//    @Provides
+//    fun provideWeatherRetrofitInstance(client: OkHttpClient) : Retrofit {
+//        return Retrofit.Builder()
+//            .baseUrl(Constants.WEATHER_BASE_URL)
+//            .client(client)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//    }
 }
