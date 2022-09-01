@@ -1,4 +1,4 @@
-package com.aravind.zohotask.ui.view.adapter
+package com.aravind.zohotask.news.ui.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,21 +9,24 @@ import com.aravind.zohotask.R
 import com.aravind.zohotask.databinding.AdapterItemBinding
 import com.aravind.zohotask.network.model.NewsModelData
 
-
 class NewsAdapter(
     private var newsList : List<NewsModelData>,
-    val clickListener: onAuthorClickListener
+    val clickListener: OnAuthorClickListener
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
-    inner class ViewHolder(val binding: AdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: AdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(data : NewsModelData) {
 
-            binding?.nameTextview.text = data.author
-            binding?.descriptionTextview.text = data.content
+            binding.nameTextview.text = data.author
+            binding.descriptionTextview.text = data.content
 
             binding.avatarImageview.load(data.imageUrl) {
                 crossfade(true)
                 placeholder(R.drawable.placeholder)
                 transformations(CircleCropTransformation())
+            }
+
+            binding.descriptionTextview.setOnClickListener {
+                clickListener.onAuthorClicked(data)
             }
         }
     }
@@ -42,7 +45,7 @@ class NewsAdapter(
         this.newsList = list
     }
 
-    interface onAuthorClickListener{
+    interface OnAuthorClickListener{
         fun onAuthorClicked(news : NewsModelData)
     }
 }

@@ -14,4 +14,13 @@
     <color name="color_gray">#5F5F5F</color>
     <color name="color_light_gray">#999999</color>
     <color name="color_light_blue">#E8E9F1</color>
+
+    <color name="light_blue">#f5f6fa</color>
+    <color name="grey">#797c83</color>
+    <color name="red">#f42e27</color>
+    <color name="box">#f68080</color>
+    <color name="text_color">#ffd6d3</color>
+    <color name="disable_color">#f3f3f3</color>
+    <color name="disable_text_color">#a0a1a6</color>
+    <color name="search_text_color">#ffccba</color>
 </resources>

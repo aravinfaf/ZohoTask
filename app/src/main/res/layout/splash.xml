@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/welcomtTextview"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_dimen_200dp"
+        android:text="Welcome, Zoho news"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        app:layout_constraintTop_toBottomOf="@id/welcomtTextview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_url="https://assets6.lottiefiles.com/private_files/lf30_ml9a1iyl.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

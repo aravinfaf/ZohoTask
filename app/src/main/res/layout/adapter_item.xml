@@ -20,8 +20,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/avatarImageview"
-            android:layout_width="@dimen/_dimen_60"
-            android:layout_height="@dimen/_dimen_60"
+            android:layout_width="@dimen/_dimen_70"
+            android:layout_height="@dimen/_dimen_70"
             android:scaleType="fitCenter"
             app:layout_constraintLeft_toLeftOf="parent"
             android:src="@drawable/placeholder" />
@@ -40,23 +40,24 @@
             android:paddingLeft="@dimen/_dimen_5"/>
 
 
-        <TextView
+        <com.aravind.zohotask.util.ReadMoreTextView
             android:id="@+id/descriptionTextview"
             app:layout_constraintTop_toBottomOf="@id/nameTextview"
             app:layout_constraintLeft_toRightOf="@id/avatarImageview"
             android:layout_width="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_height="wrap_content"
             android:text="@string/test"
             android:textColor="@color/black"
-            android:textSize="@dimen/_text_10"
+            android:textSize="@dimen/_text_12"
             android:paddingLeft="@dimen/_dimen_5"
             android:paddingTop="@dimen/_dimen_5"
-            android:singleLine="false"
-            android:ellipsize="end"
+            android:paddingBottom="@dimen/_dimen_5"
+            app:readMoreMaxLine="2"
             android:maxLines="2"
-            android:inputType="textMultiLine"/>
+            app:readMoreText="@string/read_more" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

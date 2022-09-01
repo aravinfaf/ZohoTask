@@ -1,6 +1,5 @@
 package com.aravind.zohotask.weather.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,6 +30,7 @@ class WeatherViewmodel @Inject constructor(private val apiRepository: ApiReposit
 
                 } catch (e: ApiException) {
                     withContext(Dispatchers.Main) {
+                        weatherLiveData.value = Resource.loading(null)
                         weatherLiveData.postValue( e.message.let { Resource.error(it!!, null) })
                     }
                 }

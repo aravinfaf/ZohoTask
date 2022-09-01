@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.aravind.zohotask.news.ui.view.activity.Home"
+        android:label="@string/home" />
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.aravind.zohotask.news.ui.view.fragment.NewsFragment"
+        android:label="@string/news">
+        <action
+            android:id="@+id/newsDetail"
+            app:destination="@+id/newDetailFragment"></action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newDetailFragment"
+        android:name="com.aravind.zohotask.news.ui.view.fragment.NewsDetailFragment"
+        android:label="@string/news">
+        <argument
+            android:name="url"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.aravind.zohotask.weather.ui.view.fragment.WeatherFragment"
+        android:label="@string/weather" />
+</navigation>

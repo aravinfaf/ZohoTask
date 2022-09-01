@@ -32,11 +32,19 @@ object AppModule {
      
     @Provides
     fun provideRetrofitInstance(client: OkHttpClient) : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return if(Constants.SCREEN == "1") {
+            Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }else{
+            Retrofit.Builder()
+                .baseUrl(Constants.WEATHER_BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
     }
 
     @Provides

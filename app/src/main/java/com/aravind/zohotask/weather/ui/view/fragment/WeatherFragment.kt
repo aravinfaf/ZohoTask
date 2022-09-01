@@ -8,13 +8,14 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.aravind.zohotask.R
 import com.aravind.zohotask.databinding.ActivityWeatherBinding
@@ -27,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class WeatherFragment : AppCompatActivity() {
+class WeatherFragment : Fragment() {
 
     private var binding: ActivityWeatherBinding? = null
     private val viewmodel: WeatherViewmodel by viewModels()
@@ -36,13 +37,23 @@ class WeatherFragment : AppCompatActivity() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = ActivityWeatherBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        return binding?.root
+    }
 
-        viewmodel.weatherLiveData.observe(this, weatherObserver)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Constants.SCREEN = "2"
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title = getString(R.string.weather)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        viewmodel.weatherLiveData.observe(viewLifecycleOwner, weatherObserver)
 
         getLocationUpdates()
     }
@@ -50,28 +61,30 @@ class WeatherFragment : AppCompatActivity() {
     private val weatherObserver = Observer<Resource<WeatherModel>> {
         when (it.status) {
             Status.LOADING -> {
-
+                binding?.progressBar?.visibility = View.VISIBLE
             }
             Status.SUCCESS -> {
+                binding?.progressBar?.visibility = View.GONE
                 it.data?.let { weatherModel ->
-                    val iconCode = weatherModel?.weather?.first().icon?.replace("n", "d")
+                    val iconCode = weatherModel.weather.first().icon.replace("n", "d")
                     changeBgAccToTemp(iconCode)
                     binding?.apply {
                         AppUtils.setGlideImageview(imageWeatherSymbol, Constants.WEATHER_API_IMAGE
                                 + "${iconCode}@4x.png")
 
-                        textTodaysDate?.text = AppUtils.getCurrentDateTime(Constants.DATE_FORMAT)
+                        textTodaysDate.text = AppUtils.getCurrentDateTime(Constants.DATE_FORMAT)
 
-                        textTemperature?.text = weatherModel?.main?.temp.toString()
+                        textTemperature.text = weatherModel.main.temp.toString()
 
                         binding?.textCityName?.text =
-                            weatherModel.name + ", " + weatherModel?.sys?.country
+                            weatherModel.name + ", " + weatherModel.sys.country
                     }
                 }
             }
-
             Status.ERROR -> {
-                showToast(it?.message!!)
+                binding?.progressBar?.visibility = View.GONE
+                requireActivity().showToast(it?.message!!)
+                binding?.noDataImg?.visibility = View.VISIBLE
             }
         }
     }
@@ -86,11 +99,11 @@ class WeatherFragment : AppCompatActivity() {
     }
 
     private fun checkPermission(): Boolean {
-        val result = ContextCompat.checkSelfPermission(applicationContext, ACCESS_FINE_LOCATION)
+        val result = ContextCompat.checkSelfPermission(requireContext(), ACCESS_FINE_LOCATION)
         return result == PackageManager.PERMISSION_GRANTED
     }
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(this,
+        ActivityCompat.requestPermissions(requireActivity(),
             arrayOf(ACCESS_FINE_LOCATION),
             PERMISSION_REQUEST_CODE)
     }
@@ -103,7 +116,7 @@ class WeatherFragment : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            PERMISSION_REQUEST_CODE -> if (grantResults.size > 0) {
+            PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty()) {
                 val locationAccepted = grantResults[0] === PackageManager.PERMISSION_GRANTED
                 if (locationAccepted) Snackbar.make(binding?.root!!,
                     "Permission Granted, Now you can access location data and camera.",
@@ -113,7 +126,7 @@ class WeatherFragment : AppCompatActivity() {
                         Snackbar.LENGTH_LONG).show()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
-                            showMessageOKCancel("You need to allow access to both the permissions"
+                            showMessageOKCancel("You need to allow access the permissions"
                             ) { _, _ ->
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     requestPermissions(arrayOf(ACCESS_FINE_LOCATION),
@@ -128,7 +141,7 @@ class WeatherFragment : AppCompatActivity() {
         }
     }
     private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
-        AlertDialog.Builder(this@WeatherFragment)
+        AlertDialog.Builder(requireContext())
             .setMessage(message)
             .setPositiveButton("OK", okListener)
             .setNegativeButton("Cancel", null)
@@ -142,33 +155,26 @@ class WeatherFragment : AppCompatActivity() {
             requestPermission()
         }else{
             startLocationUpdates()
-            Toast.makeText(this,"Granted",Toast.LENGTH_LONG).show()
         }
     }
 
     private fun getLocationUpdates()
     {
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         locationRequest = LocationRequest()
         locationRequest.interval = 50000
         locationRequest.fastestInterval = 50000
         locationRequest.smallestDisplacement = 170f // 170 m = 0.1 mile
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY //set according to your app function
-        locationCallback = object : LocationCallback() {
+        object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
 
                 if (locationResult.locations.isNotEmpty()) {
-                    // get latest location
-                    val location = locationResult.lastLocation
-                    Log.d("LLOOCC",locationResult?.lastLocation?.latitude.toString()+" , "+locationResult?.lastLocation?.longitude)
-                    // use your location object
-                    // get latitude , longitude and other info from this
-
-                    val geocoder = Geocoder(applicationContext, Locale.getDefault())
-                    val addresses: List<Address> = geocoder.getFromLocation(locationResult?.lastLocation?.latitude!!,
-                        locationResult?.lastLocation?.longitude!!, 1)
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                    val addresses: List<Address> = geocoder.getFromLocation(locationResult.lastLocation.latitude,
+                        locationResult.lastLocation.longitude, 1)
 
                     if (addresses != null && addresses.isNotEmpty()) {
                         val cityName = addresses[0].getAddressLine(0)
@@ -176,24 +182,20 @@ class WeatherFragment : AppCompatActivity() {
                     }
                 }
             }
-        }
+        }.also { locationCallback = it }
     }
-
-    //start location updates
     private fun startLocationUpdates() {
         fusedLocationClient.requestLocationUpdates(
             locationRequest,
             locationCallback,
-            null /* Looper */
+            null
         )
     }
 
-    // stop location updates
     private fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    // stop receiving location update when activity not visible/foreground
     override fun onPause() {
         super.onPause()
         stopLocationUpdates()
