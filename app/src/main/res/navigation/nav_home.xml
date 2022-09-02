@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_home"
     app:startDestination="@id/home">
 
     <fragment
         android:id="@+id/home"
         android:name="com.aravind.zohotask.news.ui.view.fragment.Home"
-        android:label="@string/home" />
+        android:label="@string/home"
+        tools:layout="@layout/home"/>
 
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.aravind.zohotask.news.ui.view.fragment.NewsFragment"
-        android:label="@string/news">
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/newsDetail"
-            app:destination="@+id/newDetailFragment"></action>
+            app:destination="@+id/newsDetailFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/newDetailFragment"
+        android:id="@+id/newsDetailFragment"
         android:name="com.aravind.zohotask.news.ui.view.fragment.NewsDetailFragment"
-        android:label="@string/news">
+        android:label="@string/news_detail"
+        tools:layout="@layout/fragment_news_detail">
+
+        <argument
+            android:name="news"
+            app:argType="com.aravind.zohotask.network.model.NewsModelData"/>
+
+        <action android:id="@+id/webviewFrag"
+            app:destination="@+id/webviewFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.aravind.zohotask.news.ui.view.fragment.WebViewFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_webview">
         <argument
             android:name="url"
             android:defaultValue=""

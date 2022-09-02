@@ -3,27 +3,22 @@ package com.aravind.zohotask.news.ui.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
-import com.aravind.zohotask.R
-import com.aravind.zohotask.databinding.AdapterItemBinding
+import com.aravind.zohotask.databinding.AdapterListBinding
 import com.aravind.zohotask.network.model.NewsModelData
+import com.aravind.zohotask.util.loadImage
 
 class NewsAdapter(
     private var newsList : List<NewsModelData>,
     val clickListener: OnAuthorClickListener
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
-    inner class ViewHolder(private val binding: AdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: AdapterListBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bindData(data : NewsModelData) {
 
             binding.nameTextview.text = data.author
             binding.descriptionTextview.text = data.content
-
-            binding.avatarImageview.load(data.imageUrl) {
-                crossfade(true)
-                placeholder(R.drawable.placeholder)
-                transformations(CircleCropTransformation())
-            }
+            binding.dateTextview.text = data.date
+            binding.avatarImageview.loadImage(data.imageUrl)
 
             binding.descriptionTextview.setOnClickListener {
                 clickListener.onAuthorClicked(data)
@@ -32,7 +27,7 @@ class NewsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(AdapterItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(AdapterListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

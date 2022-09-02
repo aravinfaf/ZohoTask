@@ -19,5 +19,6 @@
     <string name="failed_getlocation">Failed on getting current location</string>
     <string name="wind">wind</string>
     <string name="cloud">Cloud</string>
+    <string name="open_website">Open website</string>
 
 </resources>

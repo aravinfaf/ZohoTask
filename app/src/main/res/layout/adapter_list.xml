@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_margin="6dp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/avatarImageview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/nameTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="@dimen/_text_16"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatarImageview" />
+
+            <TextView
+                android:id="@+id/dateTextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="@dimen/_text_12"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/avatarImageview" />
+
+
+            <com.aravind.zohotask.util.ReadMoreTextView
+                android:id="@+id/descriptionTextview"
+                app:layout_constraintTop_toBottomOf="@id/nameTextview"
+                android:layout_width="wrap_content"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="wrap_content"
+                android:text="@string/test"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_text_12"
+                android:paddingLeft="@dimen/_dimen_5"
+                android:paddingTop="@dimen/_dimen_5"
+                android:paddingBottom="@dimen/_dimen_5"
+                app:readMoreMaxLine="2"
+                android:maxLines="2"
+                app:readMoreText="@string/read_more" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

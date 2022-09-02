@@ -6,7 +6,9 @@
         <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/circle.xml" value="0.118" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/ic_close.xml" value="0.118" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/ic_search.xml" value="0.118" />
+        <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/ic_search_white_24dp.xml" value="0.118" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/rectangle_shape.xml" value="0.118" />
+        <entry key="..\:/Android/ZohoTask/app/src/main/res/drawable/task_logo.xml" value="0.1" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/activity_dashboard.xml" value="0.17864583333333334" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/activity_news.xml" value="0.1" />
@@ -14,13 +16,16 @@
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/activity_news_details.xml" value="0.17864583333333334" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/activity_weather.xml" value="0.17864583333333334" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/adapter_item.xml" value="0.14666666666666667" />
+        <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/adapter_list.xml" value="0.1" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/dashboard.xml" value="0.1796875" />
+        <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/fragment_news_detail.xml" value="0.6299019607843137" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/home.xml" value="0.1796875" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/load_state_view.xml" value="0.1796875" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/main_dashboard.xml" value="0.17864583333333334" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/search_layout.xml" value="0.1796875" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/spalsh.xml" value="0.1796875" />
         <entry key="..\:/Android/ZohoTask/app/src/main/res/layout/splash.xml" value="0.1796875" />
+        <entry key="..\:/Android/ZohoTask/app/src/main/res/menu/main.xml" value="0.17592592592592593" />
       </map>
     </option>
   </component>

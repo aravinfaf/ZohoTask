@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import coil.load
-import coil.transform.CircleCropTransformation
 import com.aravind.zohotask.R
-import com.aravind.zohotask.databinding.ActivityWeatherBinding
+import com.aravind.zohotask.databinding.FragmentWeatherBinding
 import com.aravind.zohotask.network.model.WeatherModel
 import com.aravind.zohotask.util.*
 import com.aravind.zohotask.weather.ui.viewmodel.WeatherViewmodel
@@ -29,7 +26,7 @@ import java.util.*
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
-    private var binding: ActivityWeatherBinding? = null
+    private var binding: FragmentWeatherBinding? = null
     private val viewmodel: WeatherViewmodel by viewModels()
 
     private val LOCATION_PERMISSION_REQ_CODE = 1000
@@ -44,7 +41,7 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         Constants.SCREEN = "2"
-        binding = ActivityWeatherBinding.inflate(layoutInflater)
+        binding = FragmentWeatherBinding.inflate(layoutInflater)
         return binding?.root
     }
 
@@ -70,11 +67,9 @@ class WeatherFragment : Fragment() {
                     changeBgAccToTemp(iconCode)
                     binding?.apply {
 
-                        imageWeatherSymbol.load(Constants.WEATHER_API_IMAGE
-                                + "${iconCode}@4x.png") {
-                            crossfade(true)
-                            placeholder(R.drawable.placeholder)
-                        }
+                        imageWeatherSymbol.loadImage(Constants.WEATHER_API_IMAGE
+                                + "${iconCode}@4x.png")
+
                         textTodaysDate.text = AppUtils.getCurrentDateTime(Constants.DATE_FORMAT)
 
                         textTemperature.text = weatherModel.main.temp.toString()
@@ -100,7 +95,6 @@ class WeatherFragment : Fragment() {
             "13d", "50d" -> binding?.imageWeatherHumanReaction?.setImageResource(R.drawable.snowfalling)
         }
     }
-
 
     private fun getCurrentLocation() {
         // checking location permission

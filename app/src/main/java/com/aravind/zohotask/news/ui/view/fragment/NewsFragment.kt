@@ -12,10 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.aravind.zohotask.R
-import com.aravind.zohotask.databinding.ActivityNewsBinding
+import com.aravind.zohotask.databinding.FragmentNewsBinding
 import com.aravind.zohotask.network.model.NewsModelData
 import com.aravind.zohotask.news.ui.view.adapter.NewsAdapter
 import com.aravind.zohotask.news.ui.viewmodel.NewsViewmodel
@@ -25,11 +24,10 @@ import com.aravind.zohotask.util.Status
 import com.aravind.zohotask.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
 
-    private var binding: ActivityNewsBinding? = null
+    private var binding: FragmentNewsBinding? = null
     private val newsViewmodel: NewsViewmodel by viewModels()
     private lateinit var adapter: NewsAdapter
     private var newsList = ArrayList<NewsModelData>()
@@ -39,17 +37,16 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = ActivityNewsBinding.inflate(layoutInflater)
+        binding = FragmentNewsBinding.inflate(layoutInflater)
         Constants.SCREEN = "1"
+        setHasOptionsMenu(true)
         return binding?.root!!
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.title = getString(R.string.news)
-
 
         newsViewmodel.newsData.observe(viewLifecycleOwner, NewsObserver)
         newsViewmodel.getAllNews()
@@ -90,7 +87,7 @@ class NewsFragment : Fragment() {
                         override fun onAuthorClicked(news: NewsModelData) {
 
                             findNavController().navigate(
-                                NewsFragmentDirections.newsDetail(news.readMoreUrl!!))
+                                NewsFragmentDirections.newsDetail(news))
                         }
                     })
                 binding?.newsRecyclerview?.adapter = adapter
