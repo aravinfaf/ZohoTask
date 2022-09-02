@@ -28,17 +28,17 @@ class NewsViewmodel @Inject constructor(
                 if (dplist.isEmpty() && networkUtil.isNetworkConnected()) {
                     val insertingData = mutableListOf<NewsModelData>()
 
-                    for (i in newsRepository.getNewsDetails().data!!){
+                    for (item in newsRepository.getNewsDetails().data!!){
                         val item = NewsModelData(
-                           author =  i.author ,
-                            content = i.content,
-                            date = i.date,
-                            id = i.id,
-                            imageUrl = i.imageUrl,
-                            readMoreUrl = i.readMoreUrl,
-                            time = i.time,
-                            title = i.title,
-                            url = i.url
+                           author =  item.author ,
+                            content = item.content,
+                            date = item.date,
+                            id = item.id,
+                            imageUrl = item.imageUrl,
+                            readMoreUrl = item.readMoreUrl,
+                            time = item.time,
+                            title = item.title,
+                            url = item.url
                         )
                         insertingData.add(item)
                         newsRepository.insertNews(insertingData)
