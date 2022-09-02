@@ -7,8 +7,5 @@ object Constants {
     const val WEATHER_API_IMAGE = "https://openweathermap.org/img/wn/"
     const val DATE_FORMAT = "E, d MMM yyyy"
     const val WEATHER_UNIT = "metric"
-
     var SCREEN = ""
-
-    // current?lat=11.0016&lon=77.5626&key=030314b750cc43e7b39e503dfe37150c
 }

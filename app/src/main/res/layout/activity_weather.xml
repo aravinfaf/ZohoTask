@@ -8,17 +8,6 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/text_label_search_for_city"
-            style="@style/TextViewHeaderStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/weather"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/image_city"
             android:layout_width="match_parent"
@@ -27,8 +16,7 @@
             android:src="@drawable/city_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_search_for_city" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/noDataImg"
@@ -44,7 +32,7 @@
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_dimen_100"
             android:layout_height="@dimen/_dimen_100"
-            android:visibility="visible"
+            android:visibility="gone"
             android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -56,8 +44,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_label_search_for_city">
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
                 <ImageView
@@ -99,6 +86,7 @@
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/text_label_today"
                     app:layout_constraintTop_toBottomOf="@+id/text_label_today" />
+
 
                 <TextView
                     android:id="@+id/text_temperature"

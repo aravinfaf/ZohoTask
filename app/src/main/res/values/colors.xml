@@ -23,4 +23,5 @@
     <color name="disable_color">#f3f3f3</color>
     <color name="disable_text_color">#a0a1a6</color>
     <color name="search_text_color">#ffccba</color>
+    <color name="card_color">#f9f9f9</color>
 </resources>

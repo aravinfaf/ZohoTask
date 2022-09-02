@@ -15,5 +15,9 @@
     <string name="weather">Weather</string>
     <string name="home">Home</string>
     <string name="news_detail">News detail</string>
+    <string name="grant_permission">You need to grant permission to access location</string>
+    <string name="failed_getlocation">Failed on getting current location</string>
+    <string name="wind">wind</string>
+    <string name="cloud">Cloud</string>
 
 </resources>

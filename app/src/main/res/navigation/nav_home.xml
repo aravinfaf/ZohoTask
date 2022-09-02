@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.aravind.zohotask.news.ui.view.activity.Home"
+        android:name="com.aravind.zohotask.news.ui.view.fragment.Home"
         android:label="@string/home" />
 
     <fragment

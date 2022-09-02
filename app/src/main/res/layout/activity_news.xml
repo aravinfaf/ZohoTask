@@ -14,7 +14,7 @@
         android:id="@+id/progressBar"
         android:layout_width="@dimen/_dimen_100"
         android:layout_height="@dimen/_dimen_100"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:indeterminate="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

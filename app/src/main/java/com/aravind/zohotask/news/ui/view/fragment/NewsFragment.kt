@@ -51,8 +51,8 @@ class NewsFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.title = getString(R.string.news)
 
 
-        newsViewmodel.getAllNews()
         newsViewmodel.newsData.observe(viewLifecycleOwner, NewsObserver)
+        newsViewmodel.getAllNews()
 
         binding?.searchLayout?.searchEditText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

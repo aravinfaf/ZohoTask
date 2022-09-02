@@ -33,7 +33,7 @@ object AppModule {
     @Provides
     fun provideRetrofitInstance(client: OkHttpClient) : Retrofit {
         return if(Constants.SCREEN == "1") {
-            Retrofit.Builder()
+          Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
