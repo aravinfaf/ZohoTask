@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.aravind.zohotask.R
 import com.aravind.zohotask.databinding.ActivityWeatherBinding
 import com.aravind.zohotask.network.model.WeatherModel
@@ -67,9 +69,12 @@ class WeatherFragment : Fragment() {
                     val iconCode = weatherModel.weather.first().icon.replace("n", "d")
                     changeBgAccToTemp(iconCode)
                     binding?.apply {
-                        AppUtils.setGlideImageview(imageWeatherSymbol, Constants.WEATHER_API_IMAGE
-                                + "${iconCode}@4x.png")
 
+                        imageWeatherSymbol.load(Constants.WEATHER_API_IMAGE
+                                + "${iconCode}@4x.png") {
+                            crossfade(true)
+                            placeholder(R.drawable.placeholder)
+                        }
                         textTodaysDate.text = AppUtils.getCurrentDateTime(Constants.DATE_FORMAT)
 
                         textTemperature.text = weatherModel.main.temp.toString()
@@ -126,9 +131,6 @@ class WeatherFragment : Fragment() {
                     }
 
                     viewmodel.getWeather(q = address!!, unit = Constants.WEATHER_UNIT)
-
-                    Log.d("LLLL", "Lat : ${latitude} longitude : ${longitude} ${list[0].locality}" +
-                            "${list[0].subAdminArea}")
                 }
             }
             .addOnFailureListener {

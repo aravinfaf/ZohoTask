@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aravind.zohotask.R
 import com.aravind.zohotask.databinding.ActivityNewsDetailBinding
@@ -33,6 +35,8 @@ class NewsDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.title = getString(R.string.news_detail)
 
+        handleWebViewNav()
+
         binding?.webView?.apply {
             settings.apply {
                 javaScriptEnabled = true
@@ -56,6 +60,27 @@ class NewsDetailFragment : Fragment() {
             binding?.progressBar?.progress = newProgress
             if (newProgress == 100){
                 binding?.progressBar?.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun handleWebViewNav(){
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    handleWebViewNavigation()
+                }
+
+            }
+        )
+    }
+
+    private fun handleWebViewNavigation(){
+        binding?.webView?.let { webView ->
+            if (webView.canGoBack()){
+                webView.goBack()
+            }else{
+                findNavController().popBackStack()
             }
         }
     }
