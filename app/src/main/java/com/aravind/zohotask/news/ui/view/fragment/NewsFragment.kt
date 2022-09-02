@@ -2,13 +2,12 @@ package com.aravind.zohotask.news.ui.view.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -51,19 +50,9 @@ class NewsFragment : Fragment() {
         newsViewmodel.newsData.observe(viewLifecycleOwner, NewsObserver)
         newsViewmodel.getAllNews()
 
-        binding?.searchLayout?.searchEditText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(chars: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(text: Editable?) {
-                filterName(text.toString().lowercase())
-            }
-        })
-
+        binding?.searchLayout?.searchEditText?.addTextChangedListener {
+            it?.toString()?.let { it1 -> filterName(it1.lowercase()) }
+        }
 
         binding?.searchLayout?.closeImageview?.setOnClickListener {
             binding?.searchLayout?.searchEditText?.setText("")
@@ -101,12 +90,8 @@ class NewsFragment : Fragment() {
 
     fun filterName(textAuthor: String) {
         searchResult(textAuthor)
-        val filterList = ArrayList<NewsModelData>()
-        for (name in newsList) {
-            if (name.author?.lowercase()?.contains(textAuthor)!!) {
-                filterList.add(name)
-            }
-        }
+        val filterList =
+            newsList.filter { data -> data.author?.contains(textAuthor)!! } as ArrayList<NewsModelData>
         adapter.setFilter(filterList)
         adapter.notifyDataSetChanged()
     }

@@ -20,7 +20,7 @@ class WeatherViewmodel @Inject constructor(private val apiRepository: ApiReposit
     var weatherLiveData = MutableLiveData<Resource<WeatherModel>>()
 
     fun getWeather(q : String, unit : String) {
-        weatherLiveData.value = Resource.loading(null)
+        weatherLiveData.value = Resource.loading()
 
             viewModelScope.launch(Dispatchers.IO) {
                 try {
@@ -30,7 +30,7 @@ class WeatherViewmodel @Inject constructor(private val apiRepository: ApiReposit
 
                 } catch (e: ApiException) {
                     withContext(Dispatchers.Main) {
-                        weatherLiveData.value = Resource.loading(null)
+                        weatherLiveData.value = Resource.loading()
                         weatherLiveData.postValue( e.message.let { Resource.error(it!!, null) })
                     }
                 }

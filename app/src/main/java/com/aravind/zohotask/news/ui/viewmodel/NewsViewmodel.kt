@@ -22,7 +22,7 @@ class NewsViewmodel @Inject constructor(
 
     fun getAllNews() {
         viewModelScope.launch(Dispatchers.IO) {
-            newsData.postValue(Resource.loading(null))
+            newsData.postValue(Resource.loading())
             try {
                 var dplist = newsRepository.getAllNews
                 if (dplist.isEmpty() && networkUtil.isNetworkConnected()) {
